@@ -35,12 +35,39 @@ def merge_sort( arr ):
 
 # STRETCH: implement an in-place merge sort algorithm
 def merge_in_place(arr, start, mid, end):
-    # TO-DO
+    current_left = start
+    current_right = mid + 1
+
+    while (current_left <= mid and current_right <= end):
+        if (arr[current_left] < arr[current_right]):
+            current_left += 1
+        else:
+            # shift array elements right
+            shiftElementsRight(arr, current_left, current_right)
+            current_right += 1
+            current_left += 1
+            mid += 1
 
     return arr
 
+
+def shiftElementsRight(arr, l, r):
+    temp = arr[r]
+    for i in range(r - l):
+        curr = r - i
+        arr[curr] = arr[curr - 1]
+    arr[l] = temp
+
+
 def merge_sort_in_place(arr, l, r): 
-    # TO-DO
+    if l >= r:
+        return arr
+
+    midPoint = int((r - l) / 2) + l
+
+    merge_sort_in_place(arr, l, midPoint)
+    merge_sort_in_place(arr, midPoint + 1, r)
+    merge_in_place(arr, l, midPoint, r)
 
     return arr
 
